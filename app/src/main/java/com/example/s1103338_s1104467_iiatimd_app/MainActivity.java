@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.hasFixedSize(); //voor de performance :)
 
-
+// helllooo
 //        recyclerViewAdapter = new ; vul hier de recycler db in
         recyclerView.setAdapter(recyclerViewAdapter);
     }
