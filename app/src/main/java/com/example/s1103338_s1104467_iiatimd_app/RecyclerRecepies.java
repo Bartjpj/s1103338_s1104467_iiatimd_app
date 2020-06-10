@@ -1,6 +1,32 @@
 package com.example.s1103338_s1104467_iiatimd_app;
 
-public class RecyclerRecepies {
+import androidx.appcompat.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.os.Bundle;
 
 
+public class RecyclerRecepies extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter recyclerViewAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.recycler_recepies);
+
+//        recyclerView = findViewById(R.id.recyclerView);
+//        layoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.hasFixedSize(); //voor de performance :)
+
+//        recyclerViewAdapter = new ; vul hier de recycler db in
+//        recyclerView.setAdapter(recyclerViewAdapter);
+    }
 }
