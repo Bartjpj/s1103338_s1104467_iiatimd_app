@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">s1103338_s1104467_iiatimd_app</string>
+    <string name="naarRecyclerBtn">Bekijk lijst van Recepten</string>
+    <string name="randomRecept">Geef een willekeurig recept</string>
 </resources>
