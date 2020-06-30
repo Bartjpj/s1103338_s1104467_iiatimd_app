@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -47,6 +48,8 @@ public class RecyclerRecepies extends AppCompatActivity {
 //        recyclerViewAdapter = new ; vul hier de recycler db in
 //        recyclerView.setAdapter(recyclerViewAdapter);
     }
+
+
     private void parseJSON(){
         String url = "https://pixabay.com/api/?key=5303976-fd6581ad4ac165d1b75cc15b3&q=kitten&image_type=photo&pretty=true";
 //        String url = "http://iiatimd.test/api/recipes";
@@ -60,8 +63,8 @@ public class RecyclerRecepies extends AppCompatActivity {
                         JSONObject hit = jsonArray.getJSONObject(i);
 
                         //waardes uit array halen( de namen van database)
-                        String receptTitel = hit.getString("title");
-                        String imageURL = hit.getString("webformatURL");
+                        String receptTitel = hit.getString("user");
+                        String imageURL = hit.getString("previewURL");
 
                         mRecipeList.add(new RecipeItem( imageURL, receptTitel));
                     }
@@ -79,4 +82,5 @@ public class RecyclerRecepies extends AppCompatActivity {
         });
         mRequestQueue.add(request);
     }
+
 }
