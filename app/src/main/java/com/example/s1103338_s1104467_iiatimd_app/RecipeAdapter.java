@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,17 +18,22 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     private Context mContext;
     private ArrayList<RecipeItem> mRecipeList;
 
+    private OnClickListener mOnClickListener;
+
+    public void setOnRecipeClickListener(OnClickListener listener){
+        mOnClickListener = listener;
+    }
+
     public RecipeAdapter(Context context, ArrayList<RecipeItem> recipeList){
         mContext = context;
         mRecipeList = recipeList;
     }
 
-
     @NonNull
     @Override
-    public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         View v = LayoutInflater.from(mContext).inflate(R.layout.recycler_card, parent,false);
-        return new RecipeViewHolder(v);
+        return new RecipeViewHolder(v, mOnClickListener);
 
 }
     @Override
@@ -53,11 +57,37 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         public ImageView mImageView;
         public TextView mTextViewRecipe;
 
+        OnClickListener onClickListener;
 
-        public RecipeViewHolder(@NonNull View itemView) {
+
+        public RecipeViewHolder(@NonNull View itemView, OnClickListener onClickListener) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.image_view);
             mTextViewRecipe = itemView.findViewById(R.id.textView_recipe);
+            this.onClickListener = onClickListener;
+
+//            itemView.setOnClickListener(this);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mOnClickListener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            mOnClickListener.onRecipeClick(position);
+                        }
+                    }
+                }
+            });
         }
+
+//        @Override
+//        public void onClick(View v) {
+//            onClickListener.onRecipeClick(getAdapterPosition());
+//        }
+    }
+
+    public interface OnClickListener{
+        void onRecipeClick(int position);
     }
 }
+

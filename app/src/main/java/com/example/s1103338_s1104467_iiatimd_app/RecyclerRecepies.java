@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,13 +26,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-public class RecyclerRecepies extends AppCompatActivity {
+public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter.OnClickListener{
 
     private RecyclerView recyclerView;
     private RecipeAdapter mRecipeAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<RecipeItem> mRecipeList;
     private RequestQueue mRequestQueue;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,7 @@ public class RecyclerRecepies extends AppCompatActivity {
     }
 
 
-    private void parseJSON(){
+    private void parseJSON() {
         String url = "https://pixabay.com/api/?key=5303976-fd6581ad4ac165d1b75cc15b3&q=kitten&image_type=photo&pretty=true";
 //        String url = "http://iiatimd.test/api/recipes";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -70,6 +73,7 @@ public class RecyclerRecepies extends AppCompatActivity {
                     }
                     mRecipeAdapter = new RecipeAdapter(RecyclerRecepies.this, mRecipeList);
                     recyclerView.setAdapter(mRecipeAdapter);
+                    mRecipeAdapter.setOnRecipeClickListener(RecyclerRecepies.this);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -81,6 +85,16 @@ public class RecyclerRecepies extends AppCompatActivity {
             }
         });
         mRequestQueue.add(request);
+    }
+
+    @Override
+    public void onRecipeClick(int position) {
+        // navigate naar nieuwe activity
+//        mRecipeList.get(position);
+//        Intent detailRecipe = new Intent(this, list.java);
+        RecipeItem clickedItem = mRecipeList.get(position);
+        Log.d("clickview", "onRecipeClick: clicked");
+        Toast.makeText(this, "KLIK", Toast.LENGTH_SHORT).show();
     }
 
 }
