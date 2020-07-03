@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +30,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         mRecipeList = recipeList;
     }
 
+
     @NonNull
     @Override
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
@@ -39,12 +41,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
         RecipeItem currentItem = mRecipeList.get(position);
-        String imageURL = currentItem.getmImageURL();
+//        String imageURL = currentItem.getmImageURL();
         String recipeTitel = currentItem.getmReceptTitel();
+        String titel = currentItem.getmTitel();
 
         holder.mTextViewRecipe.setText(recipeTitel);
+        holder.mTextViewTitel.setText(titel);
         //picasso gebruiken om image op te halen
-        Picasso.with(mContext).load(imageURL).fit().centerInside().into(holder.mImageView);
+//        Picasso.with(mContext).load(imageURL).fit().centerInside().into(holder.mImageView);
     }
 
 
@@ -56,6 +60,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     public class RecipeViewHolder extends RecyclerView.ViewHolder{
         public ImageView mImageView;
         public TextView mTextViewRecipe;
+        public TextView mTextViewTitel;
 
         OnClickListener onClickListener;
 
@@ -64,6 +69,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             super(itemView);
             mImageView = itemView.findViewById(R.id.image_view);
             mTextViewRecipe = itemView.findViewById(R.id.textView_recipe);
+            mTextViewTitel = itemView.findViewById(R.id.textview_title);
+
             this.onClickListener = onClickListener;
 
 //            itemView.setOnClickListener(this);
