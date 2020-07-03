@@ -8,32 +8,27 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="408dp"
-        android:layout_height="296dp"
+        android:layout_width="419dp"
+        android:layout_height="288dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.098"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/logo_large" />
 
     <TextView
         android:id="@+id/recipeTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Recipe Title"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="380dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="6dp"
+        android:text="Recept Title"
+        android:textSize="25dp"
+        android:textStyle="bold"
 
-    <TextView
-        android:id="@+id/RecipeField"
-        android:layout_width="379dp"
-        android:layout_height="366dp"
-        android:layout_marginTop="15dp"
-        android:text="Recipe here"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.055" />
 </androidx.constraintlayout.widget.ConstraintLayout>
