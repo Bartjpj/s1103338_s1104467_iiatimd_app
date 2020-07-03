@@ -28,6 +28,10 @@ import java.util.ArrayList;
 
 public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter.OnClickListener{
 
+    public static final String EXTRA_URL = "imageUrl";
+    public static final String EXTRA_RECIPETITLE = "recipeName";
+//    public static final String EXTRA_RECIPE = "recipe";
+
     private RecyclerView recyclerView;
     private RecipeAdapter mRecipeAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -90,9 +94,16 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
     @Override
     public void onRecipeClick(int position) {
         // navigate naar nieuwe activity
-//        mRecipeList.get(position);
-//        Intent detailRecipe = new Intent(this, list.java);
+
+        Intent detailRecipe = new Intent(this, RecipeDetail.class);
         RecipeItem clickedItem = mRecipeList.get(position);
+
+        detailRecipe.putExtra(EXTRA_URL, clickedItem.getmImageURL());
+        detailRecipe.putExtra(EXTRA_RECIPETITLE, clickedItem.getmReceptTitel());
+        // voeg hier het recept veld toe, net als in recipe item
+
+        startActivity(detailRecipe);
+
         Log.d("clickview", "onRecipeClick: clicked");
         Toast.makeText(this, "KLIK", Toast.LENGTH_SHORT).show();
     }

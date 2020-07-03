@@ -80,10 +80,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             });
         }
 
-//        @Override
-//        public void onClick(View v) {
-//            onClickListener.onRecipeClick(getAdapterPosition());
-//        }
     }
 
     public interface OnClickListener{
