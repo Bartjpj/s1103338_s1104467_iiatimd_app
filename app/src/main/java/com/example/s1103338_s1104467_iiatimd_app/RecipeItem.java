@@ -5,16 +5,16 @@ public class RecipeItem {
     private String mReceptTitel;
     private String mTitel;
 
-//    public RecipeItem( String imageURL, String recipeTitel, String titel){
-    public RecipeItem(String recipeTitel, String titel){
-//        mImageURL = imageURL;
+    public RecipeItem( String imageURL, String recipeTitel, String titel){
+//    public RecipeItem(String recipeTitel, String titel){
+        mImageURL = imageURL;
         mReceptTitel = recipeTitel;
         mTitel = titel;
 
     }
-//    public String getmImageURL(){
-//        return mImageURL;
-//    }
+    public String getmImageURL(){
+        return mImageURL;
+    }
 
     public String getmReceptTitel(){
         return mReceptTitel;

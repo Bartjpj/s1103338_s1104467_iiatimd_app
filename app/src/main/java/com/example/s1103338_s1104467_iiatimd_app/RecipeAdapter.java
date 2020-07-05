@@ -41,14 +41,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
         RecipeItem currentItem = mRecipeList.get(position);
-//        String imageURL = currentItem.getmImageURL();
+        String imageURL = currentItem.getmImageURL();
         String recipeTitel = currentItem.getmReceptTitel();
         String titel = currentItem.getmTitel();
 
         holder.mTextViewRecipe.setText(recipeTitel);
         holder.mTextViewTitel.setText(titel);
         //picasso gebruiken om image op te halen
-//        Picasso.with(mContext).load(imageURL).fit().centerInside().into(holder.mImageView);
+        Picasso.with(mContext).load(imageURL).fit().centerInside().into(holder.mImageView);
     }
 
 
