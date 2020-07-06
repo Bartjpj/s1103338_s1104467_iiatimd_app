@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,6 +39,8 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
     private ArrayList<RecipeItem> mRecipeList;
     private RequestQueue mRequestQueue;
 
+    private FloatingActionButton fabRandomRecipes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +50,20 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
         mRecipeList = new ArrayList<>();
         mRequestQueue = Volley.newRequestQueue(this);
         parseJSON();
+
+        fabRandomRecipes = findViewById(R.id.fabRandomRecipe);
+
+        fabRandomRecipes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent naarRandomRecipes = new Intent(RecyclerRecepies.this, RandomRecipies.class);
+                startActivity(naarRandomRecipes);
+            }
+        });
 
 //        recyclerViewAdapter = new ; vul hier de recycler db in
 //        recyclerView.setAdapter(recyclerViewAdapter);
@@ -108,5 +122,6 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
         Log.d("clickview", "onRecipeClick: clicked");
         Toast.makeText(this, "KLIK", Toast.LENGTH_SHORT).show();
     }
+
 
 }
