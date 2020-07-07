@@ -25,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter.OnClickListener{
@@ -61,18 +62,24 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
             @Override
             public void onClick(View v) {
                 Intent naarRandomRecipes = new Intent(RecyclerRecepies.this, RandomRecipies.class);
+
+                Random rand = new Random();
+                int position = rand.nextInt(mRecipeList.size());
+                RecipeItem clickedItem = mRecipeList.get(position);
+
+                naarRandomRecipes.putExtra(EXTRA_URL, clickedItem.getmImageURL());
+                naarRandomRecipes.putExtra(EXTRA_RECIPETITLE, clickedItem.getmReceptTitel());
+
                 startActivity(naarRandomRecipes);
+//
             }
         });
 
-//        recyclerViewAdapter = new ; vul hier de recycler db in
-//        recyclerView.setAdapter(recyclerViewAdapter);
     }
     private void parseJSON(){
         String url = "https://pixabay.com/api/?key=5303976-fd6581ad4ac165d1b75cc15b3&q=kitten&image_type=photo&pretty=true";
 //        String url = "http://iiatimd.test/api/recipes";
-//        String url = "http://10.0.2.2:8000/recipes";
-
+//        String url = "http://10.0.2.2:8000/api/recipes";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

@@ -20,6 +20,15 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     private ArrayList<RecipeItem> mRecipeList;
 
     private OnClickListener mOnClickListener;
+    private OnRandomClickListener mRandom;                                                              //==>random recipe
+
+    public interface OnRandomClickListener {
+        void giveRandom(int position);
+    }
+
+    public void setOnRandomClickListener(OnRandomClickListener random) {
+        mRandom = random;
+    }                                                                                                     // random recipe
 
     public void setOnRecipeClickListener(OnClickListener listener){
         mOnClickListener = listener;
@@ -73,6 +82,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
             this.onClickListener = onClickListener;
 
+            //detail na klik
 //            itemView.setOnClickListener(this);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -85,6 +95,25 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                     }
                 }
             });
+
+//            //random recipe                                                                   //==> RANDOM RECIPE
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//
+//                @Override
+//                public void onClick(View view) {
+//                    if (mRandom != null){
+//                        int position = getAdapterPosition();
+//                        if (position != RecyclerView.NO_POSITION){
+//                            mRandom.giveRandom(position);
+//                        }
+//                    }
+//                }
+//            });
+
+
+
+
+
         }
 
     }

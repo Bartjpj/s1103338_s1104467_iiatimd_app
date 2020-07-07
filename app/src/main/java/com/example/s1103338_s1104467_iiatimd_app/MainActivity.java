@@ -10,18 +10,32 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
-//    private RecyclerView recyclerView;
-////    private RecyclerView.Adapter recyclerViewAdapter;
-//    private RecipeAdapter recipeAdapter;
-//    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerView recyclerView;
+//    private RecyclerView.Adapter recyclerViewAdapter;
+    private RecipeAdapter recipeAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        recyclerView = findViewById(R.id.recyclerView);
+//        layoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.hasFixedSize(); //voor de performance :)
 
         // button om naar de recyclerview te gaan. GEEN bundle aangezien geen data mee hoeft.
         Button buttonListView = findViewById(R.id.buttonListView);
@@ -42,6 +56,36 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //maakt volleySingleton aan & vraagt requestqueue aan
+//        RequestQueue queue = VolleySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, "https://swapi.dev/api/people/1/", null, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                //hier moet komen wat er gaat gebeuren als url is aangevraagd
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.d("gefaald", error.getMessage());
+//            }
+//        }
+//        );
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://www.google.nl", new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                Log.d("gelukt", response.substring(0,50));
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.d("gefaald", error.getMessage());
+//            }
+//        }
+//        );
+//        VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
+
+//        recyclerViewAdapter = new ; vul hier de recycler db in
+//        recyclerView.setAdapter(recyclerViewAdapter);
     }
 
 
