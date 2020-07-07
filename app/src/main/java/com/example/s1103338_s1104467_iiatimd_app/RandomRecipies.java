@@ -98,9 +98,13 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
 
             float x = sensorEvent.values[0];
             if ( x > SHAKE_THRESHOLD) {
-                // HIER KOMT DATA VOOR NA SHAKEN. IF STATEMENT VOOR HET SHAKEN VAN DE TELEFOON
-                Log.d("sensor", "shaked");
-                Toast.makeText(this, "REFRESHED!" , Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(RandomRecipies.this, RandomRecipies.class);
+                finish();
+                startActivity(intent);
+
+//                Log.d("sensor", "shaked");
+//                Toast.makeText(this, "REFRESHED!" , Toast.LENGTH_SHORT).show();
             }
 //
 //            TextView mTextView = findViewById(R.id.textSensor);
