@@ -22,17 +22,19 @@
 
     <Button
         android:id="@+id/buttonListView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="178dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="160dp"
+        android:background="#57A773"
         android:text="@string/naarRecyclerBtn"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toBottomOf="@+id/logo"
-        app:layout_constraintVertical_bias="0.993"
-        />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textCreators"
@@ -72,5 +74,6 @@
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="parent"-->
 <!--        app:srcCompat="@drawable/recipe_background_app_2" />-->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

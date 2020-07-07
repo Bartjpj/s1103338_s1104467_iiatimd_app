@@ -1,13 +1,18 @@
 package com.example.s1103338_s1104467_iiatimd_app;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.transition.Explode;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -42,6 +47,7 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
 
     private FloatingActionButton fabRandomRecipes;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +80,9 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
 //
             }
         });
+
+        recyclerView.scheduleLayoutAnimation();
+
 
     }
     private void parseJSON(){
@@ -113,11 +122,13 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
         mRequestQueue.add(request);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onRecipeClick(int position) {
         // navigate naar nieuwe activity
 
         Intent detailRecipe = new Intent(this, RandomRecipies.class);
+
         RecipeItem clickedItem = mRecipeList.get(position);
 
         detailRecipe.putExtra(EXTRA_URL, clickedItem.getmImageURL());

@@ -8,6 +8,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -48,6 +50,8 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
     int last_z;
     int lastUpdate;
 
+    private FloatingActionButton fabBack;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,18 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
         mRecipeList = new ArrayList<>();
         mRequestQueue = Volley.newRequestQueue(this);
         parseJSON();
+
+
+        fabBack = findViewById(R.id.fabBack);
+        fabBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent naarRecycler = new Intent(RandomRecipies.this, RecyclerRecepies.class);
+                finish();
+                startActivity(naarRecycler);
+            }
+        });
+
     }
 
 
@@ -114,8 +130,10 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
 
                 naarRandomRecipes.putExtra(EXTRA_URL, clickedItem.getmImageURL());
                 naarRandomRecipes.putExtra(EXTRA_RECIPETITLE, clickedItem.getmReceptTitel());
-
+                finish();
                 startActivity(naarRandomRecipes);
+
+               Toast.makeText(this, "REFRESHED!" , Toast.LENGTH_SHORT).show();
 
             }
 
