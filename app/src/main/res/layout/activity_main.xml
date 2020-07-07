@@ -9,14 +9,15 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="329dp"
-        android:layout_height="203dp"
+        android:layout_width="338dp"
+        android:layout_height="209dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.229"
+        app:layout_constraintVertical_bias="0.132"
         app:srcCompat="@drawable/logo_white_large" />
 
     <Button
@@ -32,6 +33,24 @@
         app:layout_constraintTop_toBottomOf="@+id/logo"
         app:layout_constraintVertical_bias="0.993"
         />
+
+    <TextView
+        android:id="@+id/textCreators"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="173dp"
+        android:layout_marginLeft="173dp"
+        android:layout_marginTop="124dp"
+        android:layout_marginEnd="179dp"
+        android:layout_marginRight="179dp"
+        android:layout_marginBottom="18dp"
+        android:text="By: Han Ting | Bart"
+        android:textStyle="italic|bold"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonListView" />
 
     <!--    <Button-->
 <!--        android:id="@+id/buttonRandom"-->
