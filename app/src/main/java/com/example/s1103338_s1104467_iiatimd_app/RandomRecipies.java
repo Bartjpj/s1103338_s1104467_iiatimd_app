@@ -135,6 +135,8 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
 
                Toast.makeText(this, "REFRESHED!" , Toast.LENGTH_SHORT).show();
 
+//                Log.d("sensor", "shaked");
+//                Toast.makeText(this, "REFRESHED!" , Toast.LENGTH_SHORT).show();
             }
 
 
