@@ -28,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static com.example.s1103338_s1104467_iiatimd_app.RecyclerRecepies.EXTRA_RECIPETITLE;
 import static com.example.s1103338_s1104467_iiatimd_app.RecyclerRecepies.EXTRA_URL;
@@ -37,6 +38,8 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
     private static final float SHAKE_THRESHOLD = 7;
     private SensorManager mSensorManager;
     private Sensor mSensor;
+    public ArrayList<RecipeItem> mRecipeList;
+    private RequestQueue mRequestQueue;
 
     private boolean activityRunning;
 
@@ -65,6 +68,10 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
         // vul de velden met de waardes
         Picasso.with(this).load(imageURL).fit().centerInside().into(imageView);
         titleView.setText(recipeTitle);
+
+        mRecipeList = new ArrayList<>();
+        mRequestQueue = Volley.newRequestQueue(this);
+        parseJSON();
     }
 
 
@@ -99,23 +106,58 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
             float x = sensorEvent.values[0];
             if ( x > SHAKE_THRESHOLD) {
 
-                Intent intent = new Intent(RandomRecipies.this, RandomRecipies.class);
-                finish();
-                startActivity(intent);
+                Intent naarRandomRecipes = new Intent(this, RandomRecipies.class);
 
-//                Log.d("sensor", "shaked");
-//                Toast.makeText(this, "REFRESHED!" , Toast.LENGTH_SHORT).show();
+                Random rand = new Random();
+                int position = rand.nextInt(mRecipeList.size());
+                RecipeItem clickedItem = mRecipeList.get(position);
+
+                naarRandomRecipes.putExtra(EXTRA_URL, clickedItem.getmImageURL());
+                naarRandomRecipes.putExtra(EXTRA_RECIPETITLE, clickedItem.getmReceptTitel());
+
+                startActivity(naarRandomRecipes);
+
             }
-//
-//            TextView mTextView = findViewById(R.id.textSensor);
-//            mTextView.setText(name);
+
 
         }
 
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {    }
 
+    private void parseJSON(){
+        String url = "https://pixabay.com/api/?key=5303976-fd6581ad4ac165d1b75cc15b3&q=kitten&image_type=photo&pretty=true";
+//        String url = "http://iiatimd.test/api/recipes";
+//        String url = "http://10.0.2.2:8000/api/recipes";
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray jsonArray = response.getJSONArray("hits"); //hits is de naam van array in de url
+
+                    for (int i = 0; i < jsonArray.length(); i++){
+                        JSONObject data = jsonArray.getJSONObject(i);
+
+                        //waardes uit array halen( de namen van database)
+                        String receptTitel = data.getString("user");
+                        String imageURL = data.getString("webformatURL");
+                        String titel = data.getString("likes");
+
+                        mRecipeList.add(new RecipeItem( imageURL, receptTitel, titel));
+//                        mRecipeList.add(new RecipeItem(receptTitel, titel));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        mRequestQueue.add(request);
     }
 }

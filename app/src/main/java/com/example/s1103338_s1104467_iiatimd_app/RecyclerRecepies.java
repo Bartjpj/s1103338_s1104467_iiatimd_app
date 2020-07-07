@@ -37,7 +37,7 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
     private RecyclerView recyclerView;
     private RecipeAdapter mRecipeAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<RecipeItem> mRecipeList;
+    public ArrayList<RecipeItem> mRecipeList;
     private RequestQueue mRequestQueue;
 
     private FloatingActionButton fabRandomRecipes;

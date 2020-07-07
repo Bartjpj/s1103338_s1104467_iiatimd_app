@@ -28,7 +28,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void sendNotification(String messageBody){
-        Intent intent = new Intent(this, RecipeDetail.class);
+        Intent intent = new Intent(this, RandomRecipies.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("shake", messageBody);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
