@@ -47,14 +47,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //Button om naar random recept te gaan
-        Button buttonRandom = (Button)findViewById(R.id.buttonRandom);
-        buttonRandom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent random = new Intent(MainActivity.this, RandomRecipies.class);
-                startActivity(random);
-            }
-        });
+//        Button buttonRandom = (Button)findViewById(R.id.buttonRandom);
+//        buttonRandom.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent random = new Intent(MainActivity.this, RandomRecipies.class);
+//                startActivity(random);
+//            }
+//        });
 
         //maakt volleySingleton aan & vraagt requestqueue aan
 //        RequestQueue queue = VolleySingleton.getInstance(this.getApplicationContext()).getRequestQueue();

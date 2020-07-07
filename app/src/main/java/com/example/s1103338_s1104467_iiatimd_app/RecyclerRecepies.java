@@ -61,7 +61,7 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
         fabRandomRecipes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent naarRandomRecipes = new Intent(RecyclerRecepies.this, RandomRecipies.class);
+                Intent naarRandomRecipes = new Intent(RecyclerRecepies.this, RecipeDetail.class);
 
                 Random rand = new Random();
                 int position = rand.nextInt(mRecipeList.size());
