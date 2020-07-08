@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 //    private RecyclerView.Adapter recyclerViewAdapter;
     private RecipeAdapter recipeAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    Button buttonListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 //        recyclerView.hasFixedSize(); //voor de performance :)
 
         // button om naar de recyclerview te gaan. GEEN bundle aangezien geen data mee hoeft.
-        Button buttonListView = findViewById(R.id.buttonListView);
+        buttonListView = findViewById(R.id.buttonListView);
         buttonListView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

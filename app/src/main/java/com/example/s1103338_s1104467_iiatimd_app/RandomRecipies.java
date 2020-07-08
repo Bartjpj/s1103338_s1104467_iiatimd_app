@@ -51,6 +51,7 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
     int lastUpdate;
 
     private FloatingActionButton fabBack;
+    private FloatingActionButton fabRefresh;
 
 
     @Override
@@ -88,6 +89,15 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
             }
         });
 
+        fabRefresh = findViewById(R.id.fabRefresh);
+        fabRefresh.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                refresh();
+            }
+        });
+
     }
 
 
@@ -121,19 +131,20 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
 
             float x = sensorEvent.values[0];
             if ( x > SHAKE_THRESHOLD) {
-
-                Intent naarRandomRecipes = new Intent(this, RandomRecipies.class);
-
-                Random rand = new Random();
-                int position = rand.nextInt(mRecipeList.size());
-                RecipeItem clickedItem = mRecipeList.get(position);
-
-                naarRandomRecipes.putExtra(EXTRA_URL, clickedItem.getmImageURL());
-                naarRandomRecipes.putExtra(EXTRA_RECIPETITLE, clickedItem.getmReceptTitel());
-                finish();
-                startActivity(naarRandomRecipes);
-
-               Toast.makeText(this, "REFRESHED!" , Toast.LENGTH_SHORT).show();
+//
+//                Intent naarRandomRecipes = new Intent(this, RandomRecipies.class);
+//
+//                Random rand = new Random();
+//                int position = rand.nextInt(mRecipeList.size());
+//                RecipeItem clickedItem = mRecipeList.get(position);
+//
+//                naarRandomRecipes.putExtra(EXTRA_URL, clickedItem.getmImageURL());
+//                naarRandomRecipes.putExtra(EXTRA_RECIPETITLE, clickedItem.getmReceptTitel());
+//                finish();
+//                startActivity(naarRandomRecipes);
+//
+//               Toast.makeText(this, "REFRESHED!" , Toast.LENGTH_SHORT).show();
+                refresh();
 
 //                Log.d("sensor", "shaked");
 //                Toast.makeText(this, "REFRESHED!" , Toast.LENGTH_SHORT).show();
@@ -141,6 +152,22 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
 
 
         }
+
+    }
+
+    private void refresh(){
+        Intent naarRandomRecipes = new Intent(this, RandomRecipies.class);
+
+        Random rand = new Random();
+        int position = rand.nextInt(mRecipeList.size());
+        RecipeItem clickedItem = mRecipeList.get(position);
+
+        naarRandomRecipes.putExtra(EXTRA_URL, clickedItem.getmImageURL());
+        naarRandomRecipes.putExtra(EXTRA_RECIPETITLE, clickedItem.getmReceptTitel());
+        finish();
+        startActivity(naarRandomRecipes);
+
+        Toast.makeText(this, "REFRESHED!" , Toast.LENGTH_SHORT).show();
 
     }
 
