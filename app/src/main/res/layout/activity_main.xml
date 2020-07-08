@@ -20,39 +20,41 @@
         app:layout_constraintVertical_bias="0.132"
         app:srcCompat="@drawable/logo_white_large" />
 
-    <Button
-        android:id="@+id/buttonListView"
-        android:layout_width="178dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="160dp"
-        android:background="#57A773"
-        android:text="@string/naarRecyclerBtn"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toBottomOf="@+id/logo"
-        app:layout_constraintVertical_bias="1.0" />
-
-<!--    <com.spark.submitbutton.SubmitButton-->
+<!--    <Button-->
 <!--        android:id="@+id/buttonListView"-->
-<!--        android:layout_width="286dp"-->
-<!--        android:layout_height="284dp"-->
+<!--        android:layout_width="178dp"-->
+<!--        android:layout_height="48dp"-->
+<!--        android:layout_marginBottom="160dp"-->
+<!--        android:background="#57A773"-->
 <!--        android:text="@string/naarRecyclerBtn"-->
-<!--        android:textColor="@color/gray"-->
+<!--        android:textColor="@android:color/white"-->
 <!--        app:layout_constraintBottom_toBottomOf="parent"-->
 <!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.444"-->
+<!--        app:layout_constraintHorizontal_bias="0.497"-->
 <!--        app:layout_constraintStart_toStartOf="parent"-->
+
 <!--        app:layout_constraintTop_toBottomOf="@+id/logo"-->
-<!--        app:layout_constraintVertical_bias="0.509"-->
-<!--        app:sub_btn_background="@color/white"-->
-<!--        app:sub_btn_duration="3000"-->
-<!--        app:sub_btn_line_color="#57A773"-->
-<!--        app:sub_btn_ripple_color="#57A773"-->
-<!--        app:sub_btn_tick_color="@color/white" />-->
+<!--        app:layout_constraintVertical_bias="1.0" />-->
+
+    <com.spark.submitbutton.SubmitButton
+        android:id="@+id/buttonListView"
+        android:layout_width="286dp"
+        android:layout_height="284dp"
+        android:text="@string/naarRecyclerBtn"
+        android:textColor="@color/gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
+        app:layout_constraintVertical_bias="0.509"
+        app:sub_btn_background="@color/white"
+        app:sub_btn_duration="3000"
+        app:sub_btn_line_color="#57A773"
+        app:sub_btn_ripple_color="#57A773"
+        app:sub_btn_tick_color="@color/white"
+
+        />
 
     <TextView
         android:id="@+id/textCreators"
