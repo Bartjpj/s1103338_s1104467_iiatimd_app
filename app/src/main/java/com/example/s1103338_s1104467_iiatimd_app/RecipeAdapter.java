@@ -52,10 +52,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         RecipeItem currentItem = mRecipeList.get(position);
         String imageURL = currentItem.getmImageURL();
         String recipeTitel = currentItem.getmReceptTitel();
-        String titel = currentItem.getmTitel();
+        String description = currentItem.getmDescription();
 
-        holder.mTextViewRecipe.setText(recipeTitel);
-        holder.mTextViewTitel.setText(titel);
+        holder.mTextViewRecipe.setText(description);
+        holder.mTextViewTitel.setText(recipeTitel);
         //picasso gebruiken om image op te halen
         Picasso.with(mContext).load(imageURL).fit().centerInside().into(holder.mImageView);
     }
@@ -83,7 +83,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             this.onClickListener = onClickListener;
 
             //detail na klik
-//            itemView.setOnClickListener(this);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -95,25 +94,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                     }
                 }
             });
-
-//            //random recipe                                                                   //==> RANDOM RECIPE
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View view) {
-//                    if (mRandom != null){
-//                        int position = getAdapterPosition();
-//                        if (position != RecyclerView.NO_POSITION){
-//                            mRandom.giveRandom(position);
-//                        }
-//                    }
-//                }
-//            });
-
-
-
-
-
         }
 
     }

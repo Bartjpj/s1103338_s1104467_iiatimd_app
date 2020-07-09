@@ -44,19 +44,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(3500);
-                            Intent intent = new Intent(MainActivity.this, RecyclerRecepies.class);
-                            startActivity(intent);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                thread.start();
+//                Thread thread = new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        try {
+//                            Thread.sleep(3500);
+//                            Intent intent = new Intent(MainActivity.this, RecyclerRecepies.class);
+//                            startActivity(intent);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+//                thread.start();
+                Intent intent = new Intent(MainActivity.this, RecyclerRecepies.class);
+                startActivity(intent);
 
             }
         });

@@ -34,6 +34,7 @@ import java.util.Random;
 
 import static com.example.s1103338_s1104467_iiatimd_app.RecyclerRecepies.EXTRA_RECIPETITLE;
 import static com.example.s1103338_s1104467_iiatimd_app.RecyclerRecepies.EXTRA_URL;
+import static com.example.s1103338_s1104467_iiatimd_app.RecyclerRecepies.EXTRA_RECIPE;
 
 public class RandomRecipies extends AppCompatActivity implements SensorEventListener {
 
@@ -45,13 +46,7 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
 
     private boolean activityRunning;
 
-    int last_x;
-    int last_y;
-    int last_z;
-    int lastUpdate;
-
-    private FloatingActionButton fabBack;
-    private FloatingActionButton fabRefresh;
+    private FloatingActionButton fabBack, fabRefresh;
 
 
     @Override
@@ -64,15 +59,18 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
         Intent intent = getIntent();
         String imageURL = intent.getStringExtra(EXTRA_URL);
         String recipeTitle = intent.getStringExtra(EXTRA_RECIPETITLE);
+        String recept = intent.getStringExtra(EXTRA_RECIPE);
         // vang hier het recept zelf op
 
         ImageView imageView = findViewById(R.id.imageView);
         TextView titleView = findViewById(R.id.recipeTitle);
+        TextView receptView = findViewById(R.id.receptView);
         //initialiseer hier meer fields
 
         // vul de velden met de waardes
         Picasso.with(this).load(imageURL).fit().centerInside().into(imageView);
         titleView.setText(recipeTitle);
+        receptView.setText(recept);
 
         mRecipeList = new ArrayList<>();
         mRequestQueue = Volley.newRequestQueue(this);
@@ -126,28 +124,10 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
     public void onSensorChanged(SensorEvent sensorEvent) {
         if(activityRunning == true) {
 
-//            String name = String.valueOf(sensorEvent.values[0]);
-//            Log.d("waarde", name);
-
             float x = sensorEvent.values[0];
             if ( x > SHAKE_THRESHOLD) {
-//
-//                Intent naarRandomRecipes = new Intent(this, RandomRecipies.class);
-//
-//                Random rand = new Random();
-//                int position = rand.nextInt(mRecipeList.size());
-//                RecipeItem clickedItem = mRecipeList.get(position);
-//
-//                naarRandomRecipes.putExtra(EXTRA_URL, clickedItem.getmImageURL());
-//                naarRandomRecipes.putExtra(EXTRA_RECIPETITLE, clickedItem.getmReceptTitel());
-//                finish();
-//                startActivity(naarRandomRecipes);
-//
-//               Toast.makeText(this, "REFRESHED!" , Toast.LENGTH_SHORT).show();
                 refresh();
 
-//                Log.d("sensor", "shaked");
-//                Toast.makeText(this, "REFRESHED!" , Toast.LENGTH_SHORT).show();
             }
 
 
@@ -164,6 +144,8 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
 
         naarRandomRecipes.putExtra(EXTRA_URL, clickedItem.getmImageURL());
         naarRandomRecipes.putExtra(EXTRA_RECIPETITLE, clickedItem.getmReceptTitel());
+        naarRandomRecipes.putExtra(EXTRA_RECIPE, clickedItem.getmRecipe());
+
         finish();
         startActivity(naarRandomRecipes);
 
@@ -175,24 +157,24 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
     public void onAccuracyChanged(Sensor sensor, int accuracy) {    }
 
     private void parseJSON(){
-        String url = "https://pixabay.com/api/?key=5303976-fd6581ad4ac165d1b75cc15b3&q=kitten&image_type=photo&pretty=true";
-//        String url = "http://iiatimd.test/api/recipes";
-//        String url = "http://10.0.2.2:8000/api/recipes";
+//        String url = "https://pixabay.com/api/?key=5303976-fd6581ad4ac165d1b75cc15b3&q=kitten&image_type=photo&pretty=true";
+        String url = "https://veiligzonnen.bartj.nl/recipe.json";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    JSONArray jsonArray = response.getJSONArray("hits"); //hits is de naam van array in de url
+                    JSONArray jsonArray = response.getJSONArray("recipe"); //hits is de naam van array in de url
 
                     for (int i = 0; i < jsonArray.length(); i++){
                         JSONObject data = jsonArray.getJSONObject(i);
 
-                        //waardes uit array halen( de namen van database)
-                        String receptTitel = data.getString("user");
-                        String imageURL = data.getString("webformatURL");
-                        String titel = data.getString("likes");
+                        String receptTitel = data.getString("name");
+                        String imageURL = data.getString("image");
+                        String description = data.getString("description");
+                        String recipe = data.getString("step");
 
-                        mRecipeList.add(new RecipeItem( imageURL, receptTitel, titel));
+                        mRecipeList.add(new RecipeItem( imageURL, receptTitel, description, recipe));
+//                        mRecipeList.add(new RecipeItem(receptTitel, titel));
 //                        mRecipeList.add(new RecipeItem(receptTitel, titel));
                     }
                 } catch (JSONException e) {

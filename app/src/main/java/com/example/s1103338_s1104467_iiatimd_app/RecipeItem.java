@@ -3,13 +3,14 @@ package com.example.s1103338_s1104467_iiatimd_app;
 public class RecipeItem {
     private String mImageURL;
     private String mReceptTitel;
-    private String mTitel;
+    private String mDescription, mRecipe;
 
-    public RecipeItem( String imageURL, String recipeTitel, String titel){
+    public RecipeItem( String imageURL, String recipeTitel, String description, String recipe){
 //    public RecipeItem(String recipeTitel, String titel){
         mImageURL = imageURL;
         mReceptTitel = recipeTitel;
-        mTitel = titel;
+        mDescription = description;
+        mRecipe = recipe;
 
     }
     public String getmImageURL(){
@@ -19,7 +20,11 @@ public class RecipeItem {
     public String getmReceptTitel(){
         return mReceptTitel;
     }
-    public String getmTitel(){
-        return mTitel;
+    public String getmDescription(){
+        return mDescription;
+    }
+
+    public String getmRecipe() {
+        return mRecipe;
     }
 }

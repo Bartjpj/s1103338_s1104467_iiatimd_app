@@ -37,6 +37,7 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
 
     public static final String EXTRA_URL = "imageUrl";
     public static final String EXTRA_RECIPETITLE = "recipeName";
+    public static final String EXTRA_RECIPE = "recipe";
 //    public static final String EXTRA_RECIPE = "recipe";
 
     private RecyclerView recyclerView;
@@ -75,6 +76,7 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
 
                 naarRandomRecipes.putExtra(EXTRA_URL, clickedItem.getmImageURL());
                 naarRandomRecipes.putExtra(EXTRA_RECIPETITLE, clickedItem.getmReceptTitel());
+                naarRandomRecipes.putExtra(EXTRA_RECIPE, clickedItem.getmRecipe());
 
                 startActivity(naarRandomRecipes);
 //
@@ -86,24 +88,26 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
 
     }
     private void parseJSON(){
-        String url = "https://pixabay.com/api/?key=5303976-fd6581ad4ac165d1b75cc15b3&q=kitten&image_type=photo&pretty=true";
+//        String url = "https://pixabay.com/api/?key=5303976-fd6581ad4ac165d1b75cc15b3&q=kitten&image_type=photo&pretty=true";
+        String url = "https://veiligzonnen.bartj.nl/recipe.json";
 //        String url = "http://iiatimd.test/api/recipes";
 //        String url = "http://10.0.2.2:8000/api/recipes";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    JSONArray jsonArray = response.getJSONArray("hits"); //hits is de naam van array in de url
+                    JSONArray jsonArray = response.getJSONArray("recipe"); //hits is de naam van array in de url
 
                     for (int i = 0; i < jsonArray.length(); i++){
                         JSONObject data = jsonArray.getJSONObject(i);
 
                         //waardes uit array halen( de namen van database)
-                        String receptTitel = data.getString("user");
-                        String imageURL = data.getString("webformatURL");
-                        String titel = data.getString("likes");
+                        String receptTitel = data.getString("name");
+                        String imageURL = data.getString("image");
+                        String description = data.getString("description");
+                        String recipe = data.getString("step");
 
-                        mRecipeList.add(new RecipeItem( imageURL, receptTitel, titel));
+                        mRecipeList.add(new RecipeItem( imageURL, receptTitel, description, recipe));
 //                        mRecipeList.add(new RecipeItem(receptTitel, titel));
                     }
                     mRecipeAdapter = new RecipeAdapter(RecyclerRecepies.this, mRecipeList);
@@ -133,6 +137,7 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
 
         detailRecipe.putExtra(EXTRA_URL, clickedItem.getmImageURL());
         detailRecipe.putExtra(EXTRA_RECIPETITLE, clickedItem.getmReceptTitel());
+        detailRecipe.putExtra(EXTRA_RECIPE, clickedItem.getmRecipe());
         // voeg hier het recept veld toe, net als in recipe item
 
         startActivity(detailRecipe);
