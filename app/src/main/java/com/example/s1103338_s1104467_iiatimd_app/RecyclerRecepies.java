@@ -4,6 +4,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,8 +15,10 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.transition.Explode;
+import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -46,12 +50,23 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
     private RequestQueue mRequestQueue;
 
     private FloatingActionButton fabRandomRecipes;
+//    final ImageView imageview = findViewById(R.id.image_view);
 
-
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_recepies);
+        setTitle("Lijst van alle recepten");
+
+        Fade fade = new Fade();
+        View decor = getWindow().getDecorView();
+        fade.excludeTarget(decor.findViewById(R.id.action_bar_container), true);
+        fade.excludeTarget(android.R.id.statusBarBackground, true);
+        fade.excludeTarget(android.R.id.navigationBarBackground, true);
+
+        getWindow().setEnterTransition(fade);
+        getWindow().setExitTransition(fade);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -87,7 +102,7 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
     }
     private void parseJSON(){
         String url = "https://pixabay.com/api/?key=5303976-fd6581ad4ac165d1b75cc15b3&q=kitten&image_type=photo&pretty=true";
-//        String url = "http://iiatimd.test/api/recipes";
+//        String url = "http://192.168.0.100:8000/api/recipes";
 //        String url = "http://10.0.2.2:8000/api/recipes";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -128,6 +143,7 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
         // navigate naar nieuwe activity
 
         Intent detailRecipe = new Intent(this, RandomRecipies.class);
+//        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(RecyclerRecepies.this, imageview, ViewCompat.getTransitionName(imageview));
 
         RecipeItem clickedItem = mRecipeList.get(position);
 
@@ -140,6 +156,10 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
         Log.d("clickview", "onRecipeClick: clicked");
         Toast.makeText(this, "KLIK", Toast.LENGTH_SHORT).show();
     }
-
+    @Override
+    public void finish(){
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
 
 }

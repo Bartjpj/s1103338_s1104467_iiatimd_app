@@ -57,7 +57,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         holder.mTextViewRecipe.setText(recipeTitel);
         holder.mTextViewTitel.setText(titel);
         //picasso gebruiken om image op te halen
-        Picasso.with(mContext).load(imageURL).fit().centerInside().into(holder.mImageView);
+        Picasso.get().load(imageURL).fit().centerInside().into(holder.mImageView);
     }
 
 
@@ -75,46 +75,29 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
 
         public RecipeViewHolder(@NonNull View itemView, OnClickListener onClickListener) {
-            super(itemView);
-            mImageView = itemView.findViewById(R.id.image_view);
-            mTextViewRecipe = itemView.findViewById(R.id.textView_recipe);
-            mTextViewTitel = itemView.findViewById(R.id.textview_title);
+                super(itemView);
+                mImageView = itemView.findViewById(R.id.image_view);
+                mTextViewRecipe = itemView.findViewById(R.id.textView_recipe);
+                mTextViewTitel = itemView.findViewById(R.id.textview_title);
 
-            this.onClickListener = onClickListener;
+                this.onClickListener = onClickListener;
 
-            //detail na klik
-//            itemView.setOnClickListener(this);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(mOnClickListener != null){
-                        int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION){
-                            mOnClickListener.onRecipeClick(position);
+                //detail na klik
+//                itemView.setOnClickListener(this);
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(mOnClickListener != null){
+                            int position = getAdapterPosition();
+                            if(position != RecyclerView.NO_POSITION){
+                                mOnClickListener.onRecipeClick(position);
+                            }
                         }
                     }
-                }
-            });
-
-//            //random recipe                                                                   //==> RANDOM RECIPE
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View view) {
-//                    if (mRandom != null){
-//                        int position = getAdapterPosition();
-//                        if (position != RecyclerView.NO_POSITION){
-//                            mRandom.giveRandom(position);
-//                        }
-//                    }
-//                }
-//            });
+                });
 
 
-
-
-
-        }
+            }
 
     }
 

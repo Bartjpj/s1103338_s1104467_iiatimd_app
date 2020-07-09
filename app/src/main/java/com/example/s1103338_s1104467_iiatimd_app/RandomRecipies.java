@@ -58,6 +58,7 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recipe_detail);
+        setTitle("Recept");
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
@@ -71,7 +72,7 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
         //initialiseer hier meer fields
 
         // vul de velden met de waardes
-        Picasso.with(this).load(imageURL).fit().centerInside().into(imageView);
+        Picasso.get().load(imageURL).fit().centerInside().into(imageView);
         titleView.setText(recipeTitle);
 
         mRecipeList = new ArrayList<>();
