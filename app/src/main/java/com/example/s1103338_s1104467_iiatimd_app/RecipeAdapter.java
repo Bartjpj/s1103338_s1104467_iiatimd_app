@@ -57,7 +57,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         holder.mTextViewRecipe.setText(description);
         holder.mTextViewTitel.setText(recipeTitel);
         //picasso gebruiken om image op te halen
-        Picasso.with(mContext).load(imageURL).fit().centerInside().into(holder.mImageView);
+        Picasso.get().load(imageURL).fit().centerInside().into(holder.mImageView);
     }
 
 
