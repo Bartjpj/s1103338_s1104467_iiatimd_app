@@ -52,13 +52,12 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
 
     private FloatingActionButton fabRandomRecipes;
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_recepies);
         setTitle("Lijst van alle recepten");
-
         Fade fade = new Fade();
         View decor = getWindow().getDecorView();
         fade.excludeTarget(decor.findViewById(R.id.action_bar_container), true);
@@ -93,6 +92,7 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
                 naarRandomRecipes.putExtra(EXTRA_RECIPE, clickedItem.getmRecipe());
 
                 startActivity(naarRandomRecipes);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 //
             }
         });
@@ -155,6 +155,7 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
         // voeg hier het recept veld toe, net als in recipe item
 
         startActivity(detailRecipe);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
         Log.d("clickview", "onRecipeClick: clicked");
         Toast.makeText(this, "KLIK", Toast.LENGTH_SHORT).show();

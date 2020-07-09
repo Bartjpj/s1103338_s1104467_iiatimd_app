@@ -149,6 +149,7 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
 
         finish();
         startActivity(naarRandomRecipes);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
         Toast.makeText(this, "REFRESHED!" , Toast.LENGTH_SHORT).show();
 
@@ -189,5 +190,10 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
             }
         });
         mRequestQueue.add(request);
+    }
+    @Override
+    public void finish(){
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

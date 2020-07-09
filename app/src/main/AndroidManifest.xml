@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,9 +25,10 @@
         </service>
 
 
+        <activity android:name=".MainActivity"/>
         <activity android:name=".RecyclerRecepies"/>
         <activity android:name=".RandomRecipies"/>
-        <activity android:name=".RecipeDetail"/>
+<!--        <activity android:name=".RecipeDetail"/>-->
     </application>
 
 </manifest>
