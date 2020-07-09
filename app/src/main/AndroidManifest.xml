@@ -10,16 +10,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:name=".MyFirebaseMessagingService"
+                 android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
 
+
+        <activity android:name=".MainActivity"/>
         <activity android:name=".RecyclerRecepies"/>
         <activity android:name=".RandomRecipies"/>
+<!--        <activity android:name=".RecipeDetail"/>-->
     </application>
 
 </manifest>
