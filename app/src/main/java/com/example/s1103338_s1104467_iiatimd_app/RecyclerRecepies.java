@@ -157,8 +157,6 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
         startActivity(detailRecipe);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-        Log.d("clickview", "onRecipeClick: clicked");
-        Toast.makeText(this, "KLIK", Toast.LENGTH_SHORT).show();
     }
     @Override
     public void finish(){
