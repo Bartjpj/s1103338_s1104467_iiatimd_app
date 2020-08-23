@@ -4,4 +4,8 @@
     <string name="randomRecept">Geef een willekeurig recept</string>
     <string name="random">Random recept</string>
     <string name="recipe_generator">Recipe Generator</string>
+    <string name="gebruikersnaam">Gebruikersnaam</string>
+    <string name="wachtwoord">Wachtwoord</string>
+    <string name="login">Login</string>
+
 </resources>
