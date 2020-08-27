@@ -28,7 +28,7 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".RecyclerRecepies"/>
         <activity android:name=".RandomRecipies"/>
-<!--        <activity android:name=".RecipeDetail"/>-->
+        <activity android:name=".LoginActivity"/>
     </application>
 
 </manifest>
