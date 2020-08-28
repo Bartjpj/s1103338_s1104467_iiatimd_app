@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,9 +34,9 @@ public class LoginActivity extends AppCompatActivity {
         fade.excludeTarget(decor.findViewById(R.id.action_bar_container), true);
         fade.excludeTarget(android.R.id.statusBarBackground, true);
         fade.excludeTarget(android.R.id.navigationBarBackground, true);
-
-        getWindow().setEnterTransition(fade);
-        getWindow().setExitTransition(fade);
+//
+//        getWindow().setEnterTransition(fade);
+//        getWindow().setExitTransition(fade);
         setContentView(R.layout.login);
 
         btnLogin = findViewById(R.id.buttonListView);
@@ -63,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (email.getText().toString().isEmpty()){
-                    layoutEmail.setErrorEnabled(true);
+//                    layoutEmail.setErrorEnabled(true);
                 }
             }
 
@@ -75,12 +76,12 @@ public class LoginActivity extends AppCompatActivity {
     }
     private boolean validate(){
         if(email.getText().toString().isEmpty()){
-            layoutEmail.setErrorEnabled(true);
-            layoutEmail.setError("Email is verplicht");
+//            layoutEmail.setErrorEnabled(true);
+//            layoutEmail.setError("Email is verplicht");
             return false;
         }
         if(wachtwoord.getText().toString().isEmpty()){
-            layoutWachtwoord.setError("Wachtwoord is verplicht");
+//            layoutWachtwoord.setError("Wachtwoord is verplicht");
             return false;
         }
         return true;
