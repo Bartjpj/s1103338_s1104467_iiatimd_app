@@ -13,6 +13,7 @@ public class LaunchActivity extends AppCompatActivity {
     @Override
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_launch);
         setTitle("Welkom bij de Recipe Generator");
 

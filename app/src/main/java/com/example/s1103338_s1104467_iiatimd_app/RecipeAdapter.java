@@ -46,13 +46,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         View v = LayoutInflater.from(mContext).inflate(R.layout.recycler_card, parent,false);
         return new RecipeViewHolder(v, mOnClickListener);
 
-}
+    }
+
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
         RecipeItem currentItem = mRecipeList.get(position);
-        String imageURL = currentItem.getmImageURL();
-        String recipeTitel = currentItem.getmReceptTitel();
-        String description = currentItem.getmDescription();
+        String imageURL = currentItem.getImageURL();
+        String recipeTitel = currentItem.getReceptTitel();
+        String description = currentItem.getDescription();
 
         holder.mTextViewRecipe.setText(description);
         holder.mTextViewTitel.setText(recipeTitel);

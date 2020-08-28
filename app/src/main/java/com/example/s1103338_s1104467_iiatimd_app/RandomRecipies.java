@@ -143,9 +143,9 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
         int position = rand.nextInt(mRecipeList.size());
         RecipeItem clickedItem = mRecipeList.get(position);
 
-        naarRandomRecipes.putExtra(EXTRA_URL, clickedItem.getmImageURL());
-        naarRandomRecipes.putExtra(EXTRA_RECIPETITLE, clickedItem.getmReceptTitel());
-        naarRandomRecipes.putExtra(EXTRA_RECIPE, clickedItem.getmRecipe());
+        naarRandomRecipes.putExtra(EXTRA_URL, clickedItem.getImageURL());
+        naarRandomRecipes.putExtra(EXTRA_RECIPETITLE, clickedItem.getReceptTitel());
+        naarRandomRecipes.putExtra(EXTRA_RECIPE, clickedItem.getRecipe());
 
         finish();
         startActivity(naarRandomRecipes);
@@ -159,25 +159,27 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
     public void onAccuracyChanged(Sensor sensor, int accuracy) {    }
 
     private void parseJSON(){
-//        String url = "https://pixabay.com/api/?key=5303976-fd6581ad4ac165d1b75cc15b3&q=kitten&image_type=photo&pretty=true";
-        String url = "https://veiligzonnen.bartj.nl/recipe.json";
+        String token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU5ODYxMTYwMywiZXhwIjoxNTk4NjE1MjAzLCJuYmYiOjE1OTg2MTE2MDMsImp0aSI6IjRZNDdqZzRwMW0ydVI0cm0iLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.CxYqqSDFa38SkBIuSVR8hPHK7yqMpTWPEgTr4dzlq9Y";
+        String url = "http://192.168.2.11:8000/api/recipes?token="+token;
+
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    JSONArray jsonArray = response.getJSONArray("recipe"); //hits is de naam van array in de url
-
+                    Log.d("werkt!", "onResponse: is iets binnen gekomen!");
+                    JSONArray jsonArray = response.getJSONArray("recipes"); //hits is de naam van array in de url
                     for (int i = 0; i < jsonArray.length(); i++){
                         JSONObject data = jsonArray.getJSONObject(i);
 
                         String receptTitel = data.getString("name");
+                        Log.d("werkt", receptTitel);
                         String imageURL = data.getString("image");
                         String description = data.getString("description");
                         String recipe = data.getString("step");
+                        int uuid = data.getInt("id");
 
-                        mRecipeList.add(new RecipeItem( imageURL, receptTitel, description, recipe));
-//                        mRecipeList.add(new RecipeItem(receptTitel, titel));
-//                        mRecipeList.add(new RecipeItem(receptTitel, titel));
+                        mRecipeList.add(new RecipeItem( imageURL, receptTitel, description, recipe, uuid));
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

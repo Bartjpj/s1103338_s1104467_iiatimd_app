@@ -8,6 +8,7 @@ import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
@@ -21,11 +22,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -33,6 +37,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -49,6 +58,8 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
     private RecyclerView.LayoutManager layoutManager;
     public ArrayList<RecipeItem> mRecipeList;
     private RequestQueue mRequestQueue;
+    public AppDatabase db;
+    public ArrayList<RecipeItem> recipes;
 
     private FloatingActionButton fabRandomRecipes;
 
@@ -74,6 +85,10 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
 
         mRecipeList = new ArrayList<>();
         mRequestQueue = Volley.newRequestQueue(this);
+
+
+        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+
         parseJSON();
 
         fabRandomRecipes = findViewById(R.id.fabRandomRecipe);
@@ -87,9 +102,9 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
                 int position = rand.nextInt(mRecipeList.size());
                 RecipeItem clickedItem = mRecipeList.get(position);
 
-                naarRandomRecipes.putExtra(EXTRA_URL, clickedItem.getmImageURL());
-                naarRandomRecipes.putExtra(EXTRA_RECIPETITLE, clickedItem.getmReceptTitel());
-                naarRandomRecipes.putExtra(EXTRA_RECIPE, clickedItem.getmRecipe());
+                naarRandomRecipes.putExtra(EXTRA_URL, clickedItem.getImageURL());
+                naarRandomRecipes.putExtra(EXTRA_RECIPETITLE, clickedItem.getReceptTitel());
+                naarRandomRecipes.putExtra(EXTRA_RECIPE, clickedItem.getRecipe());
 
                 startActivity(naarRandomRecipes);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -101,17 +116,22 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
 
 
     }
+
     private void parseJSON(){
-//        String url = "https://pixabay.com/api/?key=5303976-fd6581ad4ac165d1b75cc15b3&q=kitten&image_type=photo&pretty=true";
-        String url = "https://veiligzonnen.bartj.nl/recipe.json";
-//        String url = "http://iiatimd.test/api/recipes";
-//        String url = "http://10.0.2.2:8000/api/recipes";
+        //Token in een andere string omdat deze vervalt om de dag. Zo is deze makkelijker te vervangen
+        String token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU5ODYxMTYwMywiZXhwIjoxNTk4NjE1MjAzLCJuYmYiOjE1OTg2MTE2MDMsImp0aSI6IjRZNDdqZzRwMW0ydVI0cm0iLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.CxYqqSDFa38SkBIuSVR8hPHK7yqMpTWPEgTr4dzlq9Y";
+        String url = "http://192.168.2.11:8000/api/recipes?token="+token;
+
+//        RequestQueue queue = VolleySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
+
+
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                Log.d("stap", "in de request");
                 try {
-                    JSONArray jsonArray = response.getJSONArray("recipe"); //hits is de naam van array in de url
-
+                    JSONArray jsonArray = response.getJSONArray("recipes"); //hits is de naam van array in de url
+                    Log.d("stap", "onResponse: is iets binnen gekomen!");
                     for (int i = 0; i < jsonArray.length(); i++){
                         JSONObject data = jsonArray.getJSONObject(i);
 
@@ -120,24 +140,32 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
                         String imageURL = data.getString("image");
                         String description = data.getString("description");
                         String recipe = data.getString("step");
+                        int uuid = data.getInt("id");
 
-                        mRecipeList.add(new RecipeItem( imageURL, receptTitel, description, recipe));
-//                        mRecipeList.add(new RecipeItem(receptTitel, titel));
+                        mRecipeList.add(new RecipeItem( imageURL, receptTitel, description, recipe, uuid));
+
+                        // vul hier de DAO database.
+//                        new Thread(new InsertRecipeTask(db, mRecipeList.get(i))).start();
+
                     }
                     mRecipeAdapter = new RecipeAdapter(RecyclerRecepies.this, mRecipeList);
                     recyclerView.setAdapter(mRecipeAdapter);
                     mRecipeAdapter.setOnRecipeClickListener(RecyclerRecepies.this);
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Log.d("stap", "GEFAALD");
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                Log.d("stap", "error listner");
             }
         });
+//        VolleySingleton.getInstance(this).addToRequestQueue(request);
         mRequestQueue.add(request);
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -149,16 +177,14 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
 
         RecipeItem clickedItem = mRecipeList.get(position);
 
-        detailRecipe.putExtra(EXTRA_URL, clickedItem.getmImageURL());
-        detailRecipe.putExtra(EXTRA_RECIPETITLE, clickedItem.getmReceptTitel());
-        detailRecipe.putExtra(EXTRA_RECIPE, clickedItem.getmRecipe());
+        detailRecipe.putExtra(EXTRA_URL, clickedItem.getImageURL());
+        detailRecipe.putExtra(EXTRA_RECIPETITLE, clickedItem.getReceptTitel());
+        detailRecipe.putExtra(EXTRA_RECIPE, clickedItem.getRecipe());
         // voeg hier het recept veld toe, net als in recipe item
 
         startActivity(detailRecipe);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-        Log.d("clickview", "onRecipeClick: clicked");
-        Toast.makeText(this, "KLIK", Toast.LENGTH_SHORT).show();
     }
     @Override
     public void finish(){
