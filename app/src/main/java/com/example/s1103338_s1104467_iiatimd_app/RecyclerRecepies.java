@@ -88,19 +88,8 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
 
 
         AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-//        new Thread(new GetRecipeTask(db)).start();
 
-        Log.d("stap", "nu de json compilen");
         parseJSON();
-
-        Log.d("stap", "na json");
-//
-//        for(int i =0; i < mRecipeList.size(); i++){
-//
-//            String lijst =  mRecipeList.get(i).getReceptTitel();
-//            Log.d("dao", lijst);
-////            new Thread(new InsertRecipeTask(db,mRecipeList.get(i))).start();
-//        }
 
         fabRandomRecipes = findViewById(R.id.fabRandomRecipe);
 
@@ -129,10 +118,11 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
     }
 
     private void parseJSON(){
-        String url = "https://veiligzonnen.bartj.nl/recipe.json";
-//        String url = "http://192.168.2.11:8000/api/recipes?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU5ODU0MjU2OSwiZXhwIjoxNTk4NTQ2MTY5LCJuYmYiOjE1OTg1NDI1NjksImp0aSI6InoxbEgxa3lhTU5FbjNTaEkiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.VnOJbRVZFUwjXrszH0j8BZ-w334wTJxD7M8AJ5flWN0";
+        //Token in een andere string omdat deze vervalt om de dag. Zo is deze makkelijker te vervangen
+        String token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU5ODYxMTYwMywiZXhwIjoxNTk4NjE1MjAzLCJuYmYiOjE1OTg2MTE2MDMsImp0aSI6IjRZNDdqZzRwMW0ydVI0cm0iLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.CxYqqSDFa38SkBIuSVR8hPHK7yqMpTWPEgTr4dzlq9Y";
+        String url = "http://192.168.2.11:8000/api/recipes?token="+token;
+
 //        RequestQueue queue = VolleySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
-//        Recipes[] recipes = new Recipes[];
 
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -155,9 +145,7 @@ public class RecyclerRecepies extends AppCompatActivity implements RecipeAdapter
                         mRecipeList.add(new RecipeItem( imageURL, receptTitel, description, recipe, uuid));
 
                         // vul hier de DAO database.
-//                        String lijst =  mRecipeList.get(i).getReceptTitel();
-//                        Log.d("dao", String.valueOf(mRecipeList.get(i)));
-                        new Thread(new InsertRecipeTask(db, mRecipeList.get(i))).start();
+//                        new Thread(new InsertRecipeTask(db, mRecipeList.get(i))).start();
 
                     }
                     mRecipeAdapter = new RecipeAdapter(RecyclerRecepies.this, mRecipeList);

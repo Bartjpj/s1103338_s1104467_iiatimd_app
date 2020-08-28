@@ -159,9 +159,9 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
     public void onAccuracyChanged(Sensor sensor, int accuracy) {    }
 
     private void parseJSON(){
-//        String url = "https://pixabay.com/api/?key=5303976-fd6581ad4ac165d1b75cc15b3&q=kitten&image_type=photo&pretty=true";
-        String url = "https://veiligzonnen.bartj.nl/recipe.json";
-//        String url = "http://192.168.2.6:8000/recipes";
+        String token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU5ODYxMTYwMywiZXhwIjoxNTk4NjE1MjAzLCJuYmYiOjE1OTg2MTE2MDMsImp0aSI6IjRZNDdqZzRwMW0ydVI0cm0iLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.CxYqqSDFa38SkBIuSVR8hPHK7yqMpTWPEgTr4dzlq9Y";
+        String url = "http://192.168.2.11:8000/api/recipes?token="+token;
+
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -179,8 +179,7 @@ public class RandomRecipies extends AppCompatActivity implements SensorEventList
                         int uuid = data.getInt("id");
 
                         mRecipeList.add(new RecipeItem( imageURL, receptTitel, description, recipe, uuid));
-//                        mRecipeList.add(new RecipeItem(receptTitel, titel));
-//                        mRecipeList.add(new RecipeItem(receptTitel, titel));
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
